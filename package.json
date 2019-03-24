@@ -1,0 +1,29 @@
+{
+  "name": "meetup-graphql-backend",
+  "version": "0.0.1",
+  "description": "Demo Graphql backend written in NodeJS",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node-dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rgripper/meetup-graphql-backend.git"
+  },
+  "author": "Vladimir <azuresplash@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rgripper/meetup-graphql-backend/issues"
+  },
+  "homepage": "https://github.com/rgripper/meetup-graphql-backend#readme",
+  "dependencies": {
+    "apollo-server": "^2.4.8",
+    "graphql": "^14.1.1"
+  },
+  "devDependencies": {
+    "ts-node": "^8.0.3",
+    "ts-node-dev": "^1.0.0-pre.32",
+    "typescript": "^3.3.4000"
+  }
+}
