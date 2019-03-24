@@ -2,16 +2,25 @@ import { ApolloServer, gql } from "apollo-server";
 
 const movies = [{ id: '1', title: 'Toy Story' }, { id: '2', title: 'Saving Private Ryan' }]
 
-const typeDefs = gql`
+const baseTypes = gql`
+  type Query
+`
+
+const movieTypes = gql`
   type Movie {
     id: ID!
     title: String!
   }
-  
-  type Query {
+
+  extend type Query {
     movie(id: ID!): Movie
   }
 `
+
+const typeDefs = [
+  baseTypes,
+  movieTypes
+]
 
 const resolvers = {
   Query: {
