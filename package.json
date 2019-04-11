@@ -19,6 +19,7 @@
   "homepage": "https://github.com/rgripper/meetup-graphql-backend#readme",
   "dependencies": {
     "apollo-server": "^2.4.8",
+    "firebase": "^5.9.3",
     "graphql": "^14.1.1"
   },
   "devDependencies": {
