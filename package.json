@@ -1,5 +1,5 @@
 {
-  "name": "meetup-graphql-backend",
+  "name": "workshop-graphql-nodejs",
   "version": "0.0.1",
   "description": "Demo Graphql backend written in NodeJS",
   "main": "index.js",
