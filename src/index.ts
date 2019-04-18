@@ -1,6 +1,8 @@
 import { ApolloServer, gql } from "apollo-server";
-
-const movies = [{ id: '1', title: 'Toy Story' }, { id: '2', title: 'Saving Private Ryan' }]
+import { createResolvers } from "./resolvers";
+import { createMovieService } from "./movieService";
+import { createDbClient } from "./dbClient";
+import { dbConfig } from "./dbConfig";
 
 const baseTypes = gql`
   type Query
@@ -22,15 +24,12 @@ const typeDefs = [
   movieTypes
 ]
 
-const resolvers = {
-  Query: {
-    movie: (_, { id }) => {
-      return movies.find(x => x.id === id)
-    }
-  }
-}
-
-const server = new ApolloServer({ typeDefs, resolvers });
+const server = new ApolloServer({ 
+  typeDefs, 
+  resolvers: createResolvers(
+                createMovieService(
+                  createDbClient(dbConfig))) 
+});
 
 server.listen().then(({ url }) => {
   console.log(`Ready as ${url}`);

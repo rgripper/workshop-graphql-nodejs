@@ -4,7 +4,7 @@
   "description": "Demo Graphql backend written in NodeJS",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node-dev",
+    "start": "ts-node-dev src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,11 +20,11 @@
   "dependencies": {
     "apollo-server": "^2.4.8",
     "firebase": "^5.9.3",
-    "graphql": "^14.1.1"
+    "graphql": "^14.2.1"
   },
   "devDependencies": {
-    "ts-node": "^8.0.3",
+    "ts-node": "^8.1.0",
     "ts-node-dev": "^1.0.0-pre.32",
-    "typescript": "^3.3.4000"
+    "typescript": "^3.4.3"
   }
 }
