@@ -1,34 +1,50 @@
-export function createMovieService (dbClient) {
+import { firestore } from 'firebase';
+
+const average = list => list.reduce((prev, curr) => prev + curr) / list.length;
+
+export function createMovieService (dbClient: firestore.Firestore) {
   const moviesRef = dbClient.collection("movies");
   const keywordsRef = dbClient.collection("keywords");
   const ratingsRef = dbClient.collection("ratings");
+  const reviewsRef = dbClient.collection("reviews");
 
   return {
-    // get all movies
     async getAllMovies() {
       const movieCollection = await moviesRef.get();
       return movieCollection.docs.map(x => x.data());
     },
 
-    // get movie by id 
-    // TODO: return
     async getMovieById(id) {
       const doc = await moviesRef.doc(id).get();
       return doc.exists ? doc.data() : null;
     },
 
-    // get keywords by id
-    // TODO: return
-    async getKeywordsByMovieId(id) {
-      const doc = await keywordsRef.doc(id).get();
+    async getKeywordsByMovieId(movieId) {
+      const doc = await keywordsRef.doc(movieId).get();
       return doc.exists ? doc.data() : null;
     },
 
     // add rating
-    async addRating({ movieId, userId, score }) {
+    async setRatingByMovieId({ movieId, userId, score }) {
       const ratingId = `${userId}:${movieId}`;
-      await ratingsRef.doc(ratingId).set({ score });
+      await ratingsRef.doc(ratingId).set({ movieId, score });
+    },
+
+    async setReviewByMovieId({ movieId, userId, text }) {
+      const reviewId = `${userId}:${movieId}`;
+      await reviewsRef.doc(reviewId).set({ movieId, userId, text });
+    },
+
+    async getMovieFeedbackMovieId({ movieId }) {
+      const result1 = await ratingsRef.where('movieId', '==', movieId).get();
+      const result2 = await reviewsRef.where('movieId', '==', movieId).get();
+      const scores = result1.docs.map(x => x.data().score);
+      const reviews = result2.docs.map(x => x.data());
+      return {
+        movieId,
+        averageScore: average(scores),
+        reviews
+      }
     }
   }
-
 }

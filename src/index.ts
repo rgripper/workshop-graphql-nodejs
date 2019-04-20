@@ -14,8 +14,22 @@ const movieTypes = gql`
     title: String!
   }
 
+  type MovieFeedback {
+    movieId: ID!
+    reviews: [Review!]
+    averageScore: Float!
+  }
+
+  type Review {
+    movieId: ID!
+    userId: ID!
+    text: String!
+  }
+
   extend type Query {
     movie(id: ID!): Movie
+    movies: [Movie!]
+    movieFeedback(id: ID!): MovieFeedback
   }
 `
 
