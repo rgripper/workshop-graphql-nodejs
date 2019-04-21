@@ -12,6 +12,12 @@ const movieTypes = gql`
   type Movie {
     id: ID!
     title: String!
+    keywords: [Keyword!]
+  }
+
+  type Keyword {
+    id: ID!
+    name: String!
   }
 
   type MovieFeedback {
