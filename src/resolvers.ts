@@ -1,12 +1,25 @@
-import { createMovieService } from "./movieService";
+export const resolvers = {
+  Query: {
+    // TODO: inject through data source
+    movies: (_, _PARAMS, context) => context.movieService.getAllMovies(),
+    movie: (_, { id }, context) => context.movieService.getMovieById(id), // eg: 101299
+    movieFeedback: (_, { id }, context) =>
+      context.movieService.getKeywordsByMovieId(id)
+  },
 
-export function createResolvers (movieService: ReturnType<typeof createMovieService>) {
-  return {
-    Query: {
-      // TODO: inject through data source
-      movies: () => movieService.getAllMovies(),
-      movie: (obj, { id }) => movieService.getMovieById(id), // eg: 101299
-      movieFeedback: (obj, { id }) => movieService.getKeywordsByMovieId(id)
+  Mutation: {
+    setRating: async (_, { input }, context) => {
+      try {
+        await context.movieService.setRatingByMovieId(input);
+      } catch (error) {
+        return {
+          message: error.message
+        };
+      }
+
+      return {
+        message: "success"
+      };
     }
   }
-}
+};

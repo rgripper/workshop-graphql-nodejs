@@ -1,12 +1,12 @@
 import { ApolloServer, gql } from "apollo-server";
-import { createResolvers } from "./resolvers";
+import { resolvers } from "./resolvers";
 import { createMovieService } from "./movieService";
 import { createDbClient } from "./dbClient";
 import { dbConfig } from "./dbConfig";
 
 const baseTypes = gql`
   type Query
-`
+`;
 
 const movieTypes = gql`
   type Movie {
@@ -31,20 +31,34 @@ const movieTypes = gql`
     movies: [Movie!]
     movieFeedback(id: ID!): MovieFeedback
   }
-`
+`;
 
-const typeDefs = [
-  baseTypes,
-  movieTypes
-]
+const ratingTypes = gql`
+  type Mutation {
+    setRating(input: SetRatingInput!): SetInputPayload
+  }
 
-const server = new ApolloServer({ 
-  typeDefs, 
-  resolvers: createResolvers(
-                createMovieService(
-                  createDbClient(dbConfig))) 
+  input SetRatingInput {
+    movieId: ID!
+    userId: ID!
+    score: Int!
+  }
+
+  type SetInputPayload {
+    message: String
+  }
+`;
+
+const typeDefs = [baseTypes, movieTypes, ratingTypes];
+
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context: {
+    movieService: createMovieService(createDbClient(dbConfig))
+  }
 });
 
 server.listen().then(({ url }) => {
   console.log(`Ready as ${url}`);
-})
+});
