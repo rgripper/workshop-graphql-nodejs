@@ -52,7 +52,7 @@ const movieTypes = gql`
 
 const ratingTypes = gql`
   type Mutation {
-    setRating(input: SetRatingInput!): SetInputPayload
+    setRating(setRatingInput: SetRatingInput!): SetInputPayload
   }
 
   input SetRatingInput {
@@ -63,6 +63,19 @@ const ratingTypes = gql`
 
   type SetInputPayload {
     message: String
+  }
+
+  extend type Query {
+    movieUserRating(getRatingInput: GetRatingInput!): Rating
+  }
+  
+  input GetRatingInput {
+    movieId: ID!
+    userId: ID!
+  }
+  
+  type Rating {
+    score: Int
   }
 `;
 

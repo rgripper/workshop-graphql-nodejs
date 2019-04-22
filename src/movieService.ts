@@ -38,7 +38,7 @@ export function createMovieService(dbClient: firestore.Firestore) {
     async getRatingByMovieId({ movieId, userId }) {
       const ratingId = `${userId}:${movieId}`;
       const doc = await ratingsRef.doc(ratingId).get();
-      await doc.data();
+      return doc.data();
     }
 
     // async getMovieFeedbackMovieId({ movieId }) {

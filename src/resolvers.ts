@@ -2,7 +2,9 @@ export const resolvers = {
   Query: {
     // TODO: inject through data source
     movies: (_, _PARAMS, context) => context.movieService.getAllMovies(),
-    movie: (_, { id }, context) => context.movieService.getMovieById(id) // eg: 101299
+    movie: (_, { id }, context) => context.movieService.getMovieById(id), // eg: 101299
+    movieUserRating: (_, { getRatingInput }, context) =>
+      context.movieService.getRatingByMovieId(getRatingInput)
   },
   Movie: {
     keywords: async (movie, _, context) => {
@@ -13,9 +15,9 @@ export const resolvers = {
     }
   },
   Mutation: {
-    setRating: async (_, { input }, context) => {
+    setRating: async (_, { setRatingInput }, context) => {
       try {
-        await context.movieService.setRatingByMovieId(input);
+        await context.movieService.setRatingByMovieId(setRatingInput);
       } catch (error) {
         return {
           message: error.message
