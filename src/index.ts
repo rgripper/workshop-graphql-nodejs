@@ -13,6 +13,17 @@ const movieTypes = gql`
     id: ID!
     title: String!
     keywords: [Keyword!]
+    overview: String
+    posterUrl: String!
+    tagline: String
+    voteAverage: Float
+    releaseDate: String
+    genres: [String!]
+    runtime: Int
+    revenue: Int
+    language: String
+    imdbId: String
+    posterPath: String
   }
 
   type Keyword {

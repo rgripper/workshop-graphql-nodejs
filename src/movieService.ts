@@ -1,8 +1,8 @@
-import { firestore } from 'firebase';
+import { firestore } from "firebase";
 
 const average = list => list.reduce((prev, curr) => prev + curr) / list.length;
 
-export function createMovieService (dbClient: firestore.Firestore) {
+export function createMovieService(dbClient: firestore.Firestore) {
   const moviesRef = dbClient.collection("movies");
   const keywordsRef = dbClient.collection("keywords");
   const ratingsRef = dbClient.collection("ratings");
@@ -52,5 +52,5 @@ export function createMovieService (dbClient: firestore.Firestore) {
     //     reviews
     //   }
     // }
-  }
+  };
 }

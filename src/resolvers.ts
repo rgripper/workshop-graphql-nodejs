@@ -2,11 +2,13 @@ export const resolvers = {
   Query: {
     // TODO: inject through data source
     movies: (_, _PARAMS, context) => context.movieService.getAllMovies(),
-    movie: (_, { id }, context) => context.movieService.getMovieById(id), // eg: 101299
+    movie: (_, { id }, context) => context.movieService.getMovieById(id) // eg: 101299
   },
   Movie: {
     keywords: async (movie, _, context) => {
-      const data = await context.movieService.getKeywordsByMovieId(movie.id);
+      const data = await context.movieService.getKeywordsByMovieId(
+        movie.id.toString()
+      );
       return data && data.keywords;
     }
   },
