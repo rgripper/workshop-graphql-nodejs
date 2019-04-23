@@ -1,32 +1,6 @@
 export const resolvers = {
   Query: {
-    // TODO: inject through data source
-    movies: (_, _PARAMS, context) => context.movieService.getAllMovies(),
-    movie: (_, { id }, context) => context.movieService.getMovieById(id), // eg: 101299
-    movieUserRating: (_, { getRatingInput }, context) =>
-      context.movieService.getRatingByMovieId(getRatingInput)
+    // Sample resolver: 
+    // movie: (_PARENT, _PARAMS, _CONTEXT) => { return data },
   },
-  Movie: {
-    keywords: async (movie, _, context) => {
-      const data = await context.movieService.getKeywordsByMovieId(
-        movie.id.toString()
-      );
-      return data && data.keywords;
-    }
-  },
-  Mutation: {
-    setRating: async (_, { setRatingInput }, context) => {
-      try {
-        await context.movieService.setRatingByMovieId(setRatingInput);
-      } catch (error) {
-        return {
-          message: error.message
-        };
-      }
-
-      return {
-        message: "success"
-      };
-    }
-  }
 };

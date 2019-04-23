@@ -1,94 +1,38 @@
 import { ApolloServer, gql } from "apollo-server";
-import { resolvers } from "./resolvers";
-import { createMovieService } from "./movieService";
-import { createDbClient } from "./dbClient";
-import { dbConfig } from "./dbConfig";
 
-const baseTypes = gql`
-  type Query
-`;
+// STEP 1:
+// Create baseTypes
+// Create empty resolver
+// Create ApolloServer
 
-const movieTypes = gql`
-  type Movie {
-    id: ID!
-    title: String!
-    keywords: [Keyword!]
-    overview: String
-    posterUrl: String!
-    tagline: String
-    voteAverage: Float
-    releaseDate: String
-    genres: [String!]
-    runtime: Int
-    revenue: Int
-    language: String
-    imdbId: String
-    posterPath: String
-  }
+// STEP 2:
+// Create movieTypes { id, title }
+// - Query movies, and resolve movies
+// - Type Movie { id, title }
+// - movies Query resolver
+// - define ApolloServer `movieService` context 
+// - add type definitions for all properties
 
-  type Keyword {
-    id: ID!
-    name: String!
-  }
+// STEP 3:
+// Run app and check GraphiQL playground
 
-  type MovieFeedback {
-    movieId: ID!
-    reviews: [Review!]
-    averageScore: Float!
-  }
+// STEP 4:
+// Add movie Query to movieTypes
+// - Query movie by Id
+// - Check in playground
 
-  type Review {
-    movieId: ID!
-    userId: ID!
-    text: String!
-  }
+// STEP 5:
+// Add keywords to Movie type
+// - define Type Keywords, and add keywords to Movie Type
+// - resolve keywords in Movie Type
+// - Check in playground
 
-  extend type Query {
-    movie(id: ID!): Movie
-    movies: [Movie!]
-    movieFeedback(id: ID!): MovieFeedback
-  }
-`;
+// STEP 6:
+// Add rating Mutation
+// - define setRating Mutation and it's input and payload
+// - Add resolver
 
-const ratingTypes = gql`
-  type Mutation {
-    setRating(setRatingInput: SetRatingInput!): SetInputPayload
-  }
-
-  input SetRatingInput {
-    movieId: ID!
-    userId: ID!
-    score: Int!
-  }
-
-  type SetInputPayload {
-    message: String
-  }
-
-  extend type Query {
-    movieUserRating(getRatingInput: GetRatingInput!): Rating
-  }
-  
-  input GetRatingInput {
-    movieId: ID!
-    userId: ID!
-  }
-  
-  type Rating {
-    score: Int
-  }
-`;
-
-const typeDefs = [baseTypes, movieTypes, ratingTypes];
-
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-  context: {
-    movieService: createMovieService(createDbClient(dbConfig))
-  }
-});
-
-server.listen().then(({ url }) => {
-  console.log(`Ready as ${url}`);
-});
+// STEP 7:
+// Add rating Query
+// - define movieUserRating Query and it's input and payload
+// - Add resolver
