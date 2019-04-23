@@ -36,3 +36,6 @@ import { ApolloServer, gql } from "apollo-server";
 // Add rating Query
 // - define movieUserRating Query and it's input and payload
 // - Add resolver
+
+// STEP 8:
+// Add dataLoader
