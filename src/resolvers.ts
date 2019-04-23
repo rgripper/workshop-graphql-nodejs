@@ -1,4 +1,10 @@
-export const resolvers = {
+import { createMovieService } from "./movieService";
+
+type MovieService = ReturnType<typeof createMovieService>
+type MovieResolver = (obj: any, params: any, context: { movieService: MovieService }) => unknown
+type MovieResolverMap = { [key: string]: { [key: string]: MovieResolver } }
+
+export const resolvers: MovieResolverMap = {
   Query: {
     // TODO: inject through data source
     movies: (_, _PARAMS, context) => context.movieService.getAllMovies(),

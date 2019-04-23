@@ -3,6 +3,7 @@ import { resolvers } from "./resolvers";
 import { createMovieService } from "./movieService";
 import { createDbClient } from "./dbClient";
 import { dbConfig } from "./dbConfig";
+import { useMockDb, upload } from "workshop-graphql-data-uploader";
 
 const baseTypes = gql`
   type Query
@@ -79,16 +80,25 @@ const ratingTypes = gql`
   }
 `;
 
-const typeDefs = [baseTypes, movieTypes, ratingTypes];
+const dbClient = createDbClient(dbConfig)
+// upload(dbConfig);
+// // or
+// useMockDb().then(dbClient => {
+  const typeDefs = [baseTypes, movieTypes, ratingTypes];
 
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-  context: {
-    movieService: createMovieService(createDbClient(dbConfig))
-  }
-});
+  const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    context: {
+      movieService: createMovieService(dbClient)
+    }
+  });
 
-server.listen().then(({ url }) => {
-  console.log(`Ready as ${url}`);
-});
+  server.listen().then(({ url }) => {
+    console.log(`Ready as ${url}`);
+  });
+//});
+
+
+
+

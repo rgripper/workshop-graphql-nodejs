@@ -1,12 +1,12 @@
 import { firestore } from "firebase";
 
-const average = list => list.reduce((prev, curr) => prev + curr) / list.length;
+// const average = list => list.reduce((prev, curr) => prev + curr) / list.length;
 
 export function createMovieService(dbClient: firestore.Firestore) {
   const moviesRef = dbClient.collection("movies");
   const keywordsRef = dbClient.collection("keywords");
   const ratingsRef = dbClient.collection("ratings");
-  const reviewsRef = dbClient.collection("reviews");
+  // const reviewsRef = dbClient.collection("reviews");
 
   return {
     async getAllMovies() {

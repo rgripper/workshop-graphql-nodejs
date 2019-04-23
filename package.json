@@ -20,7 +20,8 @@
   "dependencies": {
     "apollo-server": "^2.4.8",
     "firebase": "^5.9.3",
-    "graphql": "^14.2.1"
+    "graphql": "^14.2.1",
+    "workshop-graphql-data-uploader": "git+https://github.com/rgripper/workshop-graphql-data-uploader.git"
   },
   "devDependencies": {
     "ts-node": "^8.1.0",
