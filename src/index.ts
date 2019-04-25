@@ -89,12 +89,13 @@ const dbClient = createDbClient(dbConfig)
   const server = new ApolloServer({
     typeDefs,
     resolvers,
+    playground: true,
     context: {
       movieService: createMovieService(dbClient)
     }
   });
 
-  server.listen(process.env.PORT || 4000).then(({ url }) => {
+  server.listen({ port: process.env.PORT || 4000 }).then(({ url }) => {
     console.log(`Ready as ${url}`);
   });
 //});

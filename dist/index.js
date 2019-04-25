@@ -85,11 +85,12 @@ const typeDefs = [baseTypes, movieTypes, ratingTypes];
 const server = new apollo_server_1.ApolloServer({
     typeDefs,
     resolvers: resolvers_1.resolvers,
+    playground: true,
     context: {
         movieService: movieService_1.createMovieService(dbClient)
     }
 });
-server.listen(process.env.PORT || 4000).then(({ url }) => {
+server.listen({ port: process.env.PORT || 4000 }).then(({ url }) => {
     console.log(`Ready as ${url}`);
 });
 //});
