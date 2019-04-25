@@ -88,7 +88,15 @@ const server = new apollo_server_1.ApolloServer({
     playground: true,
     context: {
         movieService: movieService_1.createMovieService(dbClient)
-    }
+    },
+    introspection: true,
+    formatError: error => {
+        console.error(error);
+        return new Error('Internal server error');
+        // Or, you can delete the exception information
+        // delete error.extensions.exception;
+        // return error;
+    },
 });
 server.listen({ port: process.env.PORT || 4000 }).then(({ url }) => {
     console.log(`Ready as ${url}`);

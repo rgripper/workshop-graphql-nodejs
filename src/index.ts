@@ -92,7 +92,15 @@ const dbClient = createDbClient(dbConfig)
     playground: true,
     context: {
       movieService: createMovieService(dbClient)
-    }
+    },
+    introspection: true,
+    formatError: error => {
+      console.error(error);
+      return new Error('Internal server error');
+      // Or, you can delete the exception information
+      // delete error.extensions.exception;
+      // return error;
+    },
   });
 
   server.listen({ port: process.env.PORT || 4000 }).then(({ url }) => {
