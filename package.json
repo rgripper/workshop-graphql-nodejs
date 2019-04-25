@@ -2,10 +2,12 @@
   "name": "workshop-graphql-nodejs",
   "version": "0.0.1",
   "description": "Demo Graphql backend written in NodeJS",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "start": "ts-node-dev src/index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "ts-node-dev src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dist": "tsc -p tsconfig.dist.json",
+    "start": "node dist/index.js"
   },
   "repository": {
     "type": "git",
