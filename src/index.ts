@@ -3,7 +3,7 @@ import { resolvers } from "./resolvers";
 import { createMovieService } from "./movieService";
 import { createDbClient } from "./dbClient";
 import { dbConfig } from "./dbConfig";
-import { useMockDb, upload } from "workshop-graphql-data-uploader";
+import { useMockDB, upload } from "workshop-graphql-data-uploader";
 
 const baseTypes = gql`
   type Query
@@ -83,7 +83,7 @@ const ratingTypes = gql`
 const dbClient = createDbClient(dbConfig)
 // upload(dbConfig);
 // // or
-// useMockDb().then(dbClient => {
+// useMockDB().then(dbClient => {
   const typeDefs = [baseTypes, movieTypes, ratingTypes];
 
   const server = new ApolloServer({
