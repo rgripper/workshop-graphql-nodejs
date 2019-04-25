@@ -1,4 +1,12 @@
 import { ApolloServer, gql } from "apollo-server";
+import { useMockDB } from 'workshop-graphql-data-uploader';
+
+useMockDB().then(async dbClient => {
+  const allMovies = await dbClient.collection('movies').get();
+  console.log('Movies total: ', allMovies.docs.length);
+});
+
+
 
 // STEP 1:
 // Create baseTypes
